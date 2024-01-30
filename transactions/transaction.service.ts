@@ -9,15 +9,21 @@ class TransactionService {
         description: string,
         price: number,
         userId: number,
-    ){
+        date: Date
+    ){  
         const transaction = await prisma.transaction.create({
             data: {
                 category,
                 name,
                 description,
                 price,   
-                userId
+                userId,
+                date
             }
         })
+
+        return { transaction };
     }
 }
+
+export default TransactionService;

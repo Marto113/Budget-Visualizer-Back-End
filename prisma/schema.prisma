@@ -12,14 +12,38 @@ model User {
   username  String   @unique
   password  String
   transactions Transaction[]
+  balances Balance[]
+}
+
+enum TransactionCategory {
+  Entertainment
+  Groceries
+  Bills
+  Transportation
+  Utilities
+  Food
+  Health
+  Clothing
+  Travel
+  Miscellaneous
 }
 
 model Transaction {
   id          Int      @id @default(autoincrement())
-  category    String
+  category    TransactionCategory
   name        String
   description String   
   price       Float
+  date        DateTime
+  user        User     @relation(fields: [userId], references: [id])
+  userId      Int
+}
+
+model Balance {
+  id          Int @id @default(autoincrement())
+  savings     Float
+  income      Float
+  budget      Float
   user        User     @relation(fields: [userId], references: [id])
   userId      Int
 }
