@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 import AuthService from './auth/auth.service';
 import authRouter from './auth/auth.routes';
 import userRouter from './user/user.routes';
-import transactionRouter from './transactions/transaction.routes';
+// import transactionRouter from './transactions/transaction.routes';
 const cookieParser = require('cookie-parser');
 
 const cors = require('cors');
@@ -28,7 +28,11 @@ app.post('/auth/refresh-token', authRouter);
 
 app.post('/user/register', userRouter);
 
-app.post('/add-transaction', transactionRouter);
+// app.post('/add-transaction', transactionRouter);
+
+app.get('/user/balance', userRouter);
+
+app.post('/user/balance', userRouter);
 
 const port = process.env.PORT;
 

@@ -4,7 +4,7 @@ const prisma = new PrismaClient();
 
 class TransactionService {
     static async addTransaction(
-        category: string,
+        category: ,
         name: string,
         description: string,
         price: number,

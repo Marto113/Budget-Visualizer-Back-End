@@ -18,7 +18,7 @@ class AuthService {
         const accessToken = AuthService.generateAccessToken(user.id);
         const refreshToken = AuthService.generateRefreshToken(user.id);
 
-        return { accessToken, refreshToken };
+        return { userId: user.id, accessToken, refreshToken };
     }
 
     static refreshToken(refreshToken: string): Promise<any> {

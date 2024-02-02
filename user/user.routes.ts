@@ -1,11 +1,12 @@
 import { Router } from 'express';
 import UserController from './user.controller';
 
-const ruserRouter = Router();
+const userRouter = Router();
 
-ruserRouter.post('/user/register', UserController.register);
-// ruserRouter.get('/user/{id}', UserController.getUserById);
+userRouter.post('/user/register', UserController.register);
+userRouter.get('/user/balance', UserController.getUserBalance);
+userRouter.post('/user/balance', UserController.setUserBalance);
 // ruserRouter.patch('/user/update-user', UserController.updateUser);
 // ruserRouter.delete('/user/delete/{id}', UserController.deleteUser);
 
-export default ruserRouter;
+export default userRouter;
