@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import AuthService from './auth/auth.service';
 import authRouter from './auth/auth.routes';
 import userRouter from './user/user.routes';
+import transactionRouter from './transactions/transaction.routes';
 // import transactionRouter from './transactions/transaction.routes';
 const cookieParser = require('cookie-parser');
 
@@ -23,16 +24,16 @@ app.use(cors(credentials));
 app.use(express.json());
 
 app.post('/auth/login', authRouter);
-
 app.post('/auth/refresh-token', authRouter);
 
 app.post('/user/register', userRouter);
-
-// app.post('/add-transaction', transactionRouter);
-
 app.get('/user/balance', userRouter);
-
 app.post('/user/balance', userRouter);
+
+app.post('/transactions', transactionRouter);
+app.delete('/transactions', transactionRouter);
+app.get('/transactions', transactionRouter);
+app.get('/transactions/month', transactionRouter);
 
 const port = process.env.PORT;
 

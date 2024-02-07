@@ -3,6 +3,9 @@ import TransactionController from './transaction.controller';
 
 const transactionRouter = Router();
 
-transactionRouter.post('/add-transaction', TransactionController.addTransaction);
+transactionRouter.post('/transactions', TransactionController.addTransaction);
+transactionRouter.get('/transactions', TransactionController.fetchTransaction);
+transactionRouter.delete('/transactions', TransactionController.deleteTransaction);
+transactionRouter.get('/transactions/month', TransactionController.fetchTransactionsForMonth);
 
 export default transactionRouter;

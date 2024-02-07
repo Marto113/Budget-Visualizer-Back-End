@@ -31,8 +31,8 @@ enum TransactionCategory {
 model Transaction {
   id          Int      @id @default(autoincrement())
   category    TransactionCategory
-  name        String
-  description String   
+  name        String?
+  description String?   
   price       Float
   date        DateTime
   user        User     @relation(fields: [userId], references: [id])
