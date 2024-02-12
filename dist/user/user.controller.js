@@ -26,5 +26,29 @@ class UserController {
             }
         });
     }
+    static getUserBalance(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.body;
+            try {
+                const response = yield user_service_1.default.getUserBalance(id);
+                res.status(200).json(response);
+            }
+            catch (error) {
+                res.status(500).json({ error: error.message });
+            }
+        });
+    }
+    static setUserBalance(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id, savings, income, budget } = req.body;
+            try {
+                const response = yield user_service_1.default.setUserBalance(id, savings, income, budget);
+                res.status(200).json(response);
+            }
+            catch (error) {
+                res.status(500).json({ error: error.message });
+            }
+        });
+    }
 }
 exports.default = UserController;

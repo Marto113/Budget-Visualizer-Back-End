@@ -5,7 +5,8 @@ import AuthService from './auth/auth.service';
 import authRouter from './auth/auth.routes';
 import userRouter from './user/user.routes';
 import transactionRouter from './transactions/transaction.routes';
-// import transactionRouter from './transactions/transaction.routes';
+import balanceRouter from './balance/balance.routes';
+
 const cookieParser = require('cookie-parser');
 
 const cors = require('cors');
@@ -34,6 +35,11 @@ app.post('/transactions', transactionRouter);
 app.delete('/transactions', transactionRouter);
 app.get('/transactions', transactionRouter);
 app.get('/transactions/month', transactionRouter);
+app.get('/transactions/week', transactionRouter);
+
+app.post('/balance', balanceRouter);
+app.get('/balance', balanceRouter);
+app.post('/balance/edit', balanceRouter);
 
 const port = process.env.PORT;
 

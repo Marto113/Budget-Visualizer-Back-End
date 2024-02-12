@@ -8,6 +8,7 @@ const dotenv_1 = __importDefault(require("dotenv"));
 const auth_routes_1 = __importDefault(require("./auth/auth.routes"));
 const user_routes_1 = __importDefault(require("./user/user.routes"));
 const transaction_routes_1 = __importDefault(require("./transactions/transaction.routes"));
+// import transactionRouter from './transactions/transaction.routes';
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const credentials = {
@@ -23,7 +24,12 @@ app.use(express_1.default.json());
 app.post('/auth/login', auth_routes_1.default);
 app.post('/auth/refresh-token', auth_routes_1.default);
 app.post('/user/register', user_routes_1.default);
-app.post('/add-transaction', transaction_routes_1.default);
+app.get('/user/balance', user_routes_1.default);
+app.post('/user/balance', user_routes_1.default);
+app.post('/transactions', transaction_routes_1.default);
+app.delete('/transactions', transaction_routes_1.default);
+app.get('/transactions', transaction_routes_1.default);
+app.get('/transactions/month', transaction_routes_1.default);
 const port = process.env.PORT;
 app.listen(port, () => {
     console.log(`Server: http://localhost:${port}`);

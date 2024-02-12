@@ -41,5 +41,68 @@ class UserService {
         const refreshToken = jsonwebtoken_1.default.sign({ userId }, process.env.REFRESH_SECRET, { expiresIn: '7d' });
         return refreshToken;
     }
+    static getUserBalance(userId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const userWithBalance = yield prisma.user.findUnique({
+                    where: {
+                        id: userId,
+                    },
+                    include: {
+                        balances: true,
+                    },
+                });
+                if (userWithBalance) {
+                    return userWithBalance.balances[0] || null;
+                }
+                else {
+                    return null;
+                }
+            }
+            catch (error) {
+                console.error('Error fetching user balance:', error);
+                return null;
+            }
+        });
+    }
+    static setUserBalance(userId, savings, income, budget) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const existingBalance = yield prisma.balance.findFirst({
+                    where: {
+                        userId: userId
+                    },
+                });
+                if (existingBalance) {
+                    const updatedBalance = yield prisma.balance.update({
+                        where: {
+                            id: existingBalance.id
+                        },
+                        data: {
+                            savings,
+                            income,
+                            budget,
+                        },
+                    });
+                    return updatedBalance;
+                }
+                else {
+                    const newBalance = yield prisma.balance.create({
+                        data: {
+                            userId,
+                            savings,
+                            income,
+                            budget,
+                        },
+                    });
+                    return newBalance;
+                }
+            }
+            catch (error) {
+                console.error('Error setting financial data:', error);
+                return null;
+            }
+        });
+    }
 }
 exports.default = UserService;

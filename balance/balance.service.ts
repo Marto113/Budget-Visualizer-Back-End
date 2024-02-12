@@ -3,63 +3,46 @@ import { Prisma, PrismaClient, Balance } from "@prisma/client";
 const prisma = new PrismaClient();
 
 class BalanceService {
-    static async addBalance(userId: number, income: number, budget: number, savings: number){
-        const balance = await prisma.balance.create({
-            data: {
-                savings: savings,
-                income: income,
-                budget: budget,
-                userId: userId
-            }
+    static async addBalance(userId: number, savings: number, income: number, budget: number) {
+        try {
+            const balance = await prisma.balance.create({
+                data: {
+                    savings: savings,
+                    income: income,
+                    budget: budget,
+                    userId: userId
+                }
+            });
+    
+            console.log("New balance created:", balance); // Log the new balance object
+    
+            return { balance };
+        } catch (error) {
+            console.error("Error in addBalance:", error);
+            throw error; // Re-throw the error to handle it at a higher level
+        }
+    }
+    
+    static async getBalance(userId: number) {
+        const balance = await prisma.balance.findMany({
+            where: { userId }
         });
 
         return { balance };
     }
 
-    static async getBalance(userId: number){
-        const userBalanceData = await prisma.user.findUnique({
-            where: { id: userId },
-            include: {
-                balances: true,
-            },
-        });
-
-        return userBalanceData?.balances;
-    }
-
-    static async updateIncome(userId: number, newIncome: number){
+    static async updateBalance(userId: number, savings: number, income: number, budget: number){
         const userBalance = await prisma.balance.findFirst({
             where: { userId: userId },
         });
 
         await prisma.balance.update({
             where: { id: userBalance?.id},
-            data: { income: newIncome } as Partial<Balance>,
+            data: { savings: savings, income: income, budget: budget } as Partial<Balance>,
             select: { income: true },
         });
     }
 
-    static async updateBudget(userId: number, newBudget: number){
-        const userBalance = await prisma.balance.findFirst({
-            where: { userId: userId },
-        });
-
-        await prisma.balance.update({
-            where: { id: userBalance?.id},
-            data: { income: newBudget } as Partial<Balance>,
-            select: { income: true },
-        });
-    }
-    
-    static async updateSavings(userId: number, newSavings: number){
-        const userBalance = await prisma.balance.findFirst({
-            where: { userId: userId },
-        });
-
-        await prisma.balance.update({
-            where: { id: userBalance?.id},
-            data: { income: newSavings } as Partial<Balance>,
-            select: { income: true },
-        });
-    }
 }
+
+export default BalanceService

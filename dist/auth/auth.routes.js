@@ -18,10 +18,10 @@ const auth_service_1 = __importDefault(require("./auth.service"));
 const authRouter = (0, express_1.Router)();
 authRouter.post('/auth/login', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { accessToken, refreshToken } = yield auth_service_1.default.login(req.body.username, req.body.password);
+        const { userId, accessToken, refreshToken } = yield auth_service_1.default.login(req.body.username, req.body.password);
         res.cookie('accessToken', accessToken, { httpOnly: true });
         res.cookie('refreshToken', refreshToken, { httpOnly: true });
-        res.status(200).json({ accessToken });
+        res.status(200).json({ userId, accessToken, refreshToken });
     }
     catch (error) {
         res.status(401).json({ error: error.message });

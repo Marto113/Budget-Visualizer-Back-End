@@ -5,9 +5,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const user_controller_1 = __importDefault(require("./user.controller"));
-const ruserRouter = (0, express_1.Router)();
-ruserRouter.post('/user/register', user_controller_1.default.register);
-// ruserRouter.get('/user/{id}', UserController.getUserById);
+const userRouter = (0, express_1.Router)();
+userRouter.post('/user/register', user_controller_1.default.register);
+userRouter.get('/user/balance', user_controller_1.default.getUserBalance);
+userRouter.post('/user/balance', user_controller_1.default.setUserBalance);
 // ruserRouter.patch('/user/update-user', UserController.updateUser);
 // ruserRouter.delete('/user/delete/{id}', UserController.deleteUser);
-exports.default = ruserRouter;
+exports.default = userRouter;
