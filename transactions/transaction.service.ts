@@ -73,7 +73,6 @@ class TransactionService {
     }
 
     static async fetchTransactionsForMonth(userId: number, month: number) {
-
       console.log(month, userId);
 
       try {
@@ -96,11 +95,11 @@ class TransactionService {
                   date: true
               },
           });
-  
+          console.log(transactions);
           return { transactions };
       } catch (error) {
           console.error('Error fetching transactions for month:', error);
-          throw error; // Rethrow the error to propagate it to the caller
+          throw error;
       }
   }
 

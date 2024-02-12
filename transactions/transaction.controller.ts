@@ -36,8 +36,9 @@ class TransactionController {
     }
 
     static async fetchTransactionsForMonth(req: Request, res: Response) {
-        const { userId, month } = req.body;
-
+        const userId : number = +(req.query.userId as string);
+        const month : number = +(req.query.month as string);
+        
         try  {
             const response = await TransactionService.fetchTransactionsForMonth(userId, month);
             res.status(200).json(response);
