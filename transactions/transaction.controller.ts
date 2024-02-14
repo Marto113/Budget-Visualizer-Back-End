@@ -47,11 +47,12 @@ class TransactionController {
         }
     }
 
-    static async fetchTransactionFotMonthByWeek(req: Request, res: Response) {
-        const { userId, month } = req.body;
-
-        try {
-            const response = await TransactionService.fetchTransactionFotMonthByWeek(userId, month);
+    static async getTransactionsCategory(req: Request, res: Response){
+        const userId : number = +(req.query.userId as string);
+        const month : number = +(req.query.month as string);
+        
+        try  {
+            const response = await TransactionService.getTransactionsCategory(userId, month);
             res.status(200).json(response);
         } catch (error: any) {
             res.status(500).json({error: error.message});

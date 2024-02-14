@@ -7,6 +7,6 @@ transactionRouter.post('/transactions', TransactionController.addTransaction);
 transactionRouter.get('/transactions', TransactionController.fetchTransaction);
 transactionRouter.delete('/transactions', TransactionController.deleteTransaction);
 transactionRouter.get('/transactions/month', TransactionController.fetchTransactionsForMonth);
-transactionRouter.get('/transactions/week', TransactionController.fetchTransactionFotMonthByWeek);
+transactionRouter.get('/transactions/category', TransactionController.getTransactionsCategory);
 
 export default transactionRouter;
