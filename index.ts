@@ -36,6 +36,7 @@ app.delete('/transactions', transactionRouter);
 app.get('/transactions', transactionRouter);
 app.get('/transactions/month', transactionRouter);
 app.get('/transactions/category', transactionRouter);
+app.get('/transactions/categories', transactionRouter);
 
 app.post('/balance', balanceRouter);
 app.get('/balance', balanceRouter);
