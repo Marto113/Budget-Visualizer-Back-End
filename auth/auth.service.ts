@@ -29,7 +29,10 @@ class AuthService {
 
             const accessToken = AuthService.generateAccessToken(userId);
 
-            return Promise.resolve(accessToken);
+            return Promise.resolve({
+                refreshToken: refreshToken,
+                accessToken: accessToken
+            });
         } catch (error) {
             throw new Error('Invalid or expired refresh token');
         }

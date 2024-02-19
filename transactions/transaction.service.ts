@@ -52,7 +52,8 @@ class TransactionService {
 
     static async fetchTransactions(userId: number) {
         const  transactions = await prisma.transaction.findMany({
-            where: { userId }
+            where: { userId },
+            orderBy: { date: 'desc' }
         });
 
         return { transactions };
@@ -60,7 +61,7 @@ class TransactionService {
 
     static async deleteTransaction(id: number) {
         const deletedTransaction = await prisma.transaction.delete({
-            where: { id }
+            where: { id },
         });
 
         return  deletedTransaction;

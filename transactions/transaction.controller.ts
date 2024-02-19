@@ -25,7 +25,7 @@ class TransactionController {
     }
 
     static async deleteTransaction(req: Request, res: Response) {
-        const { id } = req.body;
+        const id : number = +(req.query.id as string);
 
         try {
             const response = await TransactionService.deleteTransaction(id);
