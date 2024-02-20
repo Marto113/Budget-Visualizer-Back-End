@@ -90,6 +90,7 @@ class TransactionService {
                         { date: { lt: endDate } },
                     ],
                 },
+                orderBy: { date: 'desc' },
                 select: {
                     id: true,
                     category: true,
