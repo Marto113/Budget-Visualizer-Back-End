@@ -8,6 +8,40 @@ dotenv.config();
 const prisma = new PrismaClient();
 
 class AuthService {
+    static async register(username: string, password: string): Promise<any> {
+        const existingUser = await prisma.user.findUnique({
+            where: {
+                username,
+            },
+        });
+
+        if (existingUser) {
+            throw new Error("Username already exists");
+        }
+
+        if (password.length < 8) {
+            throw new Error("Password must be at least 8 characters long");
+        }
+
+        if (!/\d/.test(password)) {
+            throw new Error("Password must contain at least one number");
+        }
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        const newUser = await prisma.user.create({
+            data: {
+                username,
+                password: hashedPassword
+            },
+        });
+
+        const accessToken = AuthService.generateAccessToken(newUser.id);
+        const refreshToken = AuthService.generateRefreshToken(newUser.id);
+        
+        return { accessToken, refreshToken };
+    }
+
     static async login(username: string, password: string): Promise<any> {
         const user = await prisma.user.findUnique({ where: { username } });
 

@@ -1,11 +1,9 @@
 
 import express, { Express, Request, Response , Application } from 'express';
 import dotenv from 'dotenv';
-import AuthService from './auth/auth.service';
 import authRouter from './auth/auth.routes';
 import userRouter from './user/user.routes';
 import transactionRouter from './transactions/transaction.routes';
-import balanceRouter from './balance/balance.routes';
 
 const cookieParser = require('cookie-parser');
 
@@ -26,10 +24,11 @@ app.use(express.json());
 
 app.post('/auth/login', authRouter);
 app.post('/auth/refresh-token', authRouter);
+app.post('/auth/register', authRouter);
 
-app.post('/user/register', userRouter);
 app.get('/user/balance', userRouter);
 app.post('/user/balance', userRouter);
+app.put('/user/balance', userRouter);
 
 app.post('/transactions', transactionRouter);
 app.delete('/transactions', transactionRouter);
@@ -37,10 +36,6 @@ app.get('/transactions', transactionRouter);
 app.get('/transactions/month', transactionRouter);
 app.get('/transactions/category', transactionRouter);
 app.get('/transactions/categories', transactionRouter);
-
-app.post('/balance', balanceRouter);
-app.get('/balance', balanceRouter);
-app.post('/balance/edit', balanceRouter);
 
 const port = process.env.PORT;
 

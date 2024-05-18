@@ -13,6 +13,24 @@ class AuthController {
     }
   }
 
+  static async register(req: Request, res: Response) {
+    const { username, password } = req.body;
+    
+    try {
+        const response = await AuthService.register(username, password);
+        res.status(200).json(response);
+    } catch (error: any) {
+        if (error.message === "Username already exists") {
+            res.status(409).json({ error: "Username already exists" });
+        } else if (error.message === "Password must be at least 8 characters long" || error.message === "Password must contain at least one number") {
+            res.status(400).json({ error: error.message });
+        } else {
+            res.status(500).json({ error: error.message });
+        }
+    }
+}
+
+
   static async refreshToken(req: Request, res: Response) {
     const { refreshToken } = req.body;
 
