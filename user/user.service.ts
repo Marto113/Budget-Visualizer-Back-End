@@ -12,6 +12,7 @@ class UserService {
         const balance = await prisma.balance.findFirst({
             where: { userId: userId }
         });
+        
         return balance;
     }
 
@@ -66,10 +67,16 @@ class UserService {
         const updatedBalance = await prisma.balance.update({
             where: { id: userBalance.id },
             data: { savings, income, budget },
-            select: { income: true },
+            select: { userId: true, savings: true, income: true, budget: true  },
         });
 
-        return { income: updatedBalance.income, message: 'Balance updated successfully' };
+        return {
+            userId: updatedBalance.userId,
+            savings: updatedBalance.savings,
+            income: updatedBalance.income,
+            budget: updatedBalance.budget,
+            message: 'Balance updated successfully'
+        };
     }
 }
 

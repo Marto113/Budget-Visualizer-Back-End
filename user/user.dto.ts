@@ -13,7 +13,10 @@ export interface UpdateUserBalanceRequest {
 }
 
 export interface UpdateUserBalanceResponse {
+    userId: number;
+    savings: number;
     income: number;
+    budget: number;
     message: string;
 }
 
@@ -48,4 +51,8 @@ export interface GetUserBalanceResponse {
 
 export interface ErrorResponse {
     error: string;
+}
+
+export function isErrorWithMessage(error: unknown): error is ErrorResponse {
+    return typeof error === 'object' && error !== null && 'message' in error && typeof (error as any).error === 'string';
 }
